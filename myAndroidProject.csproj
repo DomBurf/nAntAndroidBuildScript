@@ -1,0 +1,7 @@
+<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningKeyStore>\\mykeystorefolder\keystore.file</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>password</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>alias</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>password</AndroidSigningKeyPass>
+</PropertyGroup>
