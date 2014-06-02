@@ -7,13 +7,13 @@
   <property name="nantcontrib.file"			value="${nantcontrib.dir}\NAnt.Contrib.Tasks.dll" />
   <property name="svn.file"             value="${tools.dir}\\subversion\bin\svn.exe" />
   <property name="release.keystore"     value="\\subversion\releases\keystore\release.keystore" />
-  <property name="release.dir"          value="${build.dir}\Bailiff System App\bin\Release" />
-  <property name="built.release.dir"    value="\\subversion\releases\DECRI\BailiffSystemApp" />
-  <property name="andrioid.manifest.file" value="${build.dir}\Bailiff System App\Properties\AndroidManifest.xml" />
-  <property name="ftp.webserver.dir"      value="ftp://APKUploader:tabl3tapkup10adD3cr1@192.168.88.90" />
-  <property name="web.service.uat.url"    value="31.221.17.24" />
-  <property name="web.service.live.url"   value="31.221.17.17" />
-  <property name="web.reference.file"     value="${build.dir}\Bailiff System App\Web References\DecriService\portal.wsdl" />
+  <property name="release.dir"          value="${build.dir}\AplicationFolder\bin\Release" />
+  <property name="built.release.dir"    value="\\subversion\releases\ApplicationFolder" />
+  <property name="andrioid.manifest.file" value="${build.dir}\ApplicationFolder\Properties\AndroidManifest.xml" />
+  <property name="ftp.webserver.dir"      value="ftp://username:password@99.99.99.99" />
+  <property name="web.service.uat.url"    value="50.221.17.99" />
+  <property name="web.service.live.url"   value="50.221.17.100" />
+  <property name="web.reference.file"     value="${build.dir}\ApplicationFolder\WebService\service.wsdl" />
   
   <!--These values are set by the build script-->
   <property name="android.version.code"           value="" overwrite="true" />
@@ -26,7 +26,7 @@
   <property name="environment.type"               value="" overwrite="true" />
 
   <!--This value will need to be changed for different branches!-->
-  <property name="svn.repository.path"            value="https://subversion:444/svn/DECRI_updated/branches/DECRI_newwork/" />
+  <property name="svn.repository.path"            value="https://subversion/svn/DEV/branches/AppFolder/" />
 
   <property name="verbose"			      	value="false" overwrite="false" />
   <property name="config.type"		      value="Debug" />
@@ -44,7 +44,7 @@
   <target name="OutputSystemInformation">
     <echo message="Task execution started at : ${script::format-to-string(datetime::now())}" />
     
-    <echo message="Application Name: DECRI Android Bailiff System" />
+    <echo message="Application Name: My Application" />
     <echo message="Machine name: ${environment::get-machine-name()}" />
     <echo message="Operating System: ${environment::get-operating-system()}" />
     <echo message="Username: ${environment::get-user-name()}" />
@@ -299,7 +299,7 @@
         <namespace prefix="soapenc" uri="http://schemas.xmlsoap.org/soap/encoding/" />
         <namespace prefix="tm" uri="http://microsoft.com/wsdl/mime/textMatching/" />
         <namespace prefix="mime" uri="http://schemas.xmlsoap.org/wsdl/mime/" />
-        <namespace prefix="tns" uri="http://www.decri.co.uk/" />
+        <namespace prefix="tns" uri="http://www.application.co.uk/" />
         <namespace prefix="http" uri="http://schemas.xmlsoap.org/wsdl/http/" />
         <namespace prefix="s" uri="http://www.w3.org/2001/XMLSchema" />
         <namespace prefix="soap12" uri="http://schemas.xmlsoap.org/wsdl/soap12/" />
