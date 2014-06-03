@@ -14,6 +14,10 @@
   <property name="web.service.uat.url"    value="50.221.17.99" />
   <property name="web.service.live.url"   value="50.221.17.100" />
   <property name="web.reference.file"     value="${build.dir}\ApplicationFolder\WebService\service.wsdl" />
+  <property name="application.dir"        value="ApplicationFolder" />
+  <property name="solution.name"          value="mySolution.sln" />
+  <property name="project.name"           value="myProject.csproj" />
+  <property name="android.application.name"       value="com.application.name" />
   
   <!--These values are set by the build script-->
   <property name="android.version.code"           value="" overwrite="true" />
@@ -73,8 +77,8 @@
     <!-- Clean up the build folder prior to starting -->
     <echo message="Task execution started at : ${script::format-to-string(datetime::now())}" />
 
-    <delete dir="${build.dir}\Bailiff System App\obj" failonerror="true" />
-    <delete dir="${build.dir}\Bailiff System App\bin" failonerror="true" />
+    <delete dir="${build.dir}\${application.dir}\obj" failonerror="true" />
+    <delete dir="${build.dir}\${application.dir}\bin" failonerror="true" />
 
     <echo message="Task execution finished at : ${script::format-to-string(datetime::now())}" />
   </target>
@@ -92,7 +96,7 @@
    <echo message="Latest SVN revision number ${svn.latest.revision.number}" />
 
    <!-- Actually build the solution - Clean mode -->
-   <property name="build.item" value="${build.dir}\Bailiff System App.sln" />
+   <property name="build.item" value="${build.dir}\${solution.name}" />
    <property name="config.type"		value="Debug" />
    <property name="target" 			    value="clean" />
    <msbuild project="${build.item}" target="${target}" verbose="${verbose}" failonerror="true">
@@ -100,7 +104,7 @@
    </msbuild>
    
     <!-- Actually build the solution - Debug mode -->
-    <property name="build.item" value="${build.dir}\Bailiff System App.sln" />
+    <property name="build.item" value="${build.dir}\${solution.name}" />
     <property name="config.type"		value="Debug" />
     <property name="target" 			    value="rebuild" />
     <msbuild project="${build.item}" target="${target}" verbose="${verbose}" failonerror="true">
@@ -115,7 +119,7 @@
     <echo message="Task execution started at : ${script::format-to-string(datetime::now())}" />
 
     <!-- Actually build the solution -->
-    <property name="build.item" value="${build.dir}\Bailiff System App.sln" />
+    <property name="build.item" value="${build.dir}\${solution.name}" />
     <property name="config.type"		value="Release" />
     <property name="target" 			    value="rebuild" />
     <msbuild project="${build.item}" target="${target}" verbose="${verbose}" failonerror="true">
@@ -130,7 +134,7 @@
     <echo message="Task execution started at : ${script::format-to-string(datetime::now())}" />
 
     <!-- Actually package the APK file -->
-    <property name="build.item" value="${build.dir}\Bailiff System App\Bailiff System App.csproj" />
+    <property name="build.item" value="${build.dir}\${application.dir}\${project.name}" />
     <property name="config.type"		value="Release" />
     <property name="target" 			  value="PackageForAndroid" />
     <msbuild project="${build.item}" target="${target}"  verbose="${verbose}" failonerror="true">
@@ -144,7 +148,7 @@
     <echo message="Task execution started at : ${script::format-to-string(datetime::now())}" />
 
     <!-- Actually sign the APK file -->
-    <property name="build.item" value="${build.dir}\Bailiff System App\Bailiff System App.csproj" /> 
+    <property name="build.item" value="${build.dir}\${application.dir}\${project.name}" /> 
     <property name="config.type"		value="Release" />
     <property name="target" 			  value="SignAndroidPackage" />
     <msbuild project="${build.item}" target="${target}" verbose="${verbose}" failonerror="true">
@@ -152,9 +156,9 @@
     </msbuild>
 
     <!--Determine if the signed APK file was created. If so create an -Aligned.apk copy -->
-    <property name="signed.android.file" value="${release.dir}\com.capita.decri-Signed.apk" />
+    <property name="signed.android.file" value="${release.dir}\${android.application.name}-Signed.apk" />
     <fail if="${not file::exists(signed.android.file)}" 	message="${signed.android.file} does not exist" />
-    <property name="aligned.android.file" value="${release.dir}\com.capita.decri-Aligned.apk" />
+    <property name="aligned.android.file" value="${release.dir}\${android.application.name}-Aligned.apk" />
     <copy file="${signed.android.file}" tofile="${aligned.android.file}" failonerror="true" verbose="${verbose}" />
     
     <echo message="Task execution finished at : ${script::format-to-string(datetime::now())}" />
@@ -189,10 +193,10 @@
     <if test="${environment.type=='LIVE'}">
       <property name="built.release.android.version" value="${android.version.name}" />
     </if>
-    <!--Determine the filename e.g. com.capita.decri-release-9.85-Aligned.apk-->
-    <property name="built.release.version.file" value="com.capita.decri-release-${built.release.android.version}-Aligned.apk" />
-    <!--copy the APK to the releases folder e.g. Version9\Release9.85\com.capita.decri-release-9.85-Aligned.apk -->
-    <copy file="${release.dir}\com.capita.decri-Aligned.apk" tofile="${built.release.version.dir}\${built.release.version.file}" failonerror="true" verbose="${verbose}" />
+    <!--Determine the filename e.g. com.application-release-9.85-Aligned.apk-->
+    <property name="built.release.version.file" value="${android.application.name}-release-${built.release.android.version}-Aligned.apk" />
+    <!--copy the APK to the releases folder e.g. Version9\Release9.85\${android.application.name}-release-9.85-Aligned.apk -->
+    <copy file="${release.dir}\${android.application.name}-Aligned.apk" tofile="${built.release.version.dir}\${built.release.version.file}" failonerror="true" verbose="${verbose}" />
 
     <call target="FTPFileToWebServer" />
 
