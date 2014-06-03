@@ -23,3 +23,15 @@ The nAnt build script is invoked from the Windows batch file. It peforms the fol
 
 To package and sign the Android APK file you will need to add the XML nodes contained within myProject.csproj to your own Visual Studio project file.
 
+Usage
+
+To use the script to build your own Android application with Visual Studio simply do the following.
+
+ - copy the FullBuild.Build.bat and FullBuild.build.xml files to your Android project folder
+ - open your project .csproj file and add the XML nodes from myProject.csproj
+
+Assumptions
+
+ - you have nAnt and nAntContrib installed (alongside your other development tools) and this path is added as an environment variable called BUILD_TOOLS
+ - WinSCP is installed as the FTP client (you can your your own FTP client of choice if necessary)
+
